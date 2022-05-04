@@ -1,24 +1,24 @@
 import React from 'react';
 import logo from './logo.svg';
+import { Routes, Route, Link } from "react-router-dom";
+import { HomeView } from './views/HomeView';
+import { ResultsView } from './views/ResultsView';
+import { TestView } from './views/TestView';
+import {Redirector} from './components/Redirector';
+import Pages from './Pages';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Redirector>
+        <Routes>
+          <Route path={Pages.Home} element={<HomeView />} />
+          <Route path={Pages.Test} element={<TestView />} />
+          <Route path={Pages.Results} element={<ResultsView />} />
+        </Routes>
+      
+    </Redirector>
     </div>
   );
 }
