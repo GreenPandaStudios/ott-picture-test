@@ -1,6 +1,7 @@
 const Pages = {
     Home: "/",
     Test: "/test",
-    Results: "/results"
+    Results: "/results",
+    Calibrate: "/calibrate",
 }
 export default Pages;

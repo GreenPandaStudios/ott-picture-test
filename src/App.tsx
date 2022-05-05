@@ -5,6 +5,7 @@ import { HomeView } from './views/HomeView';
 import { ResultsView } from './views/ResultsView';
 import { TestView } from './views/TestView';
 import {Redirector} from './components/Redirector';
+import {CalibrationView} from './views/CalibrationView';
 import Pages from './Pages';
 import './App.css';
 
@@ -16,6 +17,7 @@ function App() {
           <Route path={Pages.Home} element={<HomeView />} />
           <Route path={Pages.Test} element={<TestView />} />
           <Route path={Pages.Results} element={<ResultsView />} />
+          <Route path={Pages.Calibrate} element={<CalibrationView />} />
         </Routes>
       
     </Redirector>

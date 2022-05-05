@@ -1,9 +1,9 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import testReducer from './reducers/testReducer';
 import redirectorReducer from './reducers/redirectorReducer';
-
+import calibrationReducer from './reducers/calibrationReducer';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-const rootReducer = combineReducers({tests: testReducer, redirector: redirectorReducer})
+const rootReducer = combineReducers({tests: testReducer, redirector: redirectorReducer, calibrator:calibrationReducer })
 
 
 export const store = configureStore({
