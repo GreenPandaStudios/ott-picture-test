@@ -22,9 +22,7 @@ export const HomeView = () => {
           </Row>
         </Form.Group>
       </Form>
-      <Button onClick={() => dispatch(setPage(Pages.Results))}>
-        To Results
-      </Button>
+      <Button onClick={() => dispatch(setPage(Pages.Test))}>Start Test</Button>
       <Button onClick={() => dispatch(setPage(Pages.Calibrate))}>
         Calibrate
       </Button>
