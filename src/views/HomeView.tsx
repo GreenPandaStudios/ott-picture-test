@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Button, Col, Row, Container, Form } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store";
 import { setPage } from "../reducers/redirectorReducer";
-import { setDistance, selectDistance } from "../reducers/testReducer";
+import {
+  setDistance,
+  selectDistance,
+  resetTest,
+} from "../reducers/testReducer";
 import Pages from "../Pages";
 export const HomeView = () => {
   const dispatch = useAppDispatch();
@@ -10,6 +14,7 @@ export const HomeView = () => {
   const [localDist, setLocalDist] = useState(distance);
   function HandleSubmit() {
     dispatch(setDistance(localDist));
+    dispatch(resetTest());
     dispatch(setPage(Pages.Test));
   }
 
@@ -26,6 +31,7 @@ export const HomeView = () => {
                 type="number"
                 placeholder="Enter Test Distance"
                 required
+                defaultValue={distance}
                 min={0}
                 onChange={(e) => setLocalDist(Number(e.target.value))}
               />

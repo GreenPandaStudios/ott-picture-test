@@ -11,6 +11,7 @@ interface TestState {
   curLogMAR: number;
   Identified: Array<number>;
   distance: number;
+  finalScore: number;
 }
 
 // Define the initial state using that type
@@ -18,6 +19,7 @@ const initialState: TestState = {
   curLogMAR: 1.0,
   Identified: [],
   distance: 3,
+  finalScore: 1.0,
 };
 
 export const testSlice = createSlice({
@@ -46,8 +48,13 @@ export const testSlice = createSlice({
           ? (state.Identified[action.payload] as number) - 1
           : 0;
     },
-    clearIdentified: (state) => {
+    resetTest: (state) => {
       state.Identified = [];
+      state.curLogMAR = 1.0;
+      state.finalScore = 1.0;
+    },
+    setFinalScore: (state, action: PayloadAction<number>) => {
+      state.finalScore = action.payload;
     },
   },
 });
@@ -56,13 +63,15 @@ export const {
   setCorrect,
   incrementCorrect,
   decrementCorrect,
-  clearIdentified,
+  resetTest,
   setDistance,
   setLogMAR,
+  setFinalScore,
 } = testSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectIdentified = (state: RootState) => state.tests.Identified;
 export const selectCurLogMAR = (state: RootState) => state.tests.curLogMAR;
 export const selectDistance = (state: RootState) => state.tests.distance;
+export const selectFinalScore = (state: RootState) => state.tests.finalScore;
 export default testSlice.reducer;
