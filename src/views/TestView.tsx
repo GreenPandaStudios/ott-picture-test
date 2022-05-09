@@ -17,12 +17,17 @@ export const TestView = () => {
   const curLogMAR = useAppSelector(selectCurLogMAR);
   const distance = useAppSelector(selectDistance);
   const DPM = useAppSelector(selectDPM);
-  //TODO: Make this correct
-  const height = (distance * 30 * DPM * Math.pow(10, curLogMAR)) / 3438;
 
   const [curImage, setCurrentImage] = useState(
     Images[Math.floor(Math.random() * Images.length)]
   );
+  const height =
+    (curImage.strokeWidthHeightRatio *
+      distance *
+      DPM *
+      Math.pow(10, curLogMAR)) /
+    3438;
+
   const [answeredNo, setAnsweredNo] = useState(false);
   const [correct, setCorrect] = useState(0);
   const [total, setTotal] = useState(0);
@@ -49,7 +54,9 @@ export const TestView = () => {
   }
   return (
     <Container>
-      <Row>LogMar: {curLogMAR.toFixed(2)}</Row>
+      <Row>
+        <p>LogMar: {curLogMAR.toFixed(2)}</p>
+      </Row>
       <Row className="mb-2">
         <Container>
           <img src={curImage.path} height={height}></img>
@@ -58,6 +65,10 @@ export const TestView = () => {
       <Row>
         <Alert className="fixed-bottom">
           <Alert.Heading>Was the image recognized?</Alert.Heading>
+          <Row>
+            <p>Please hold the device {distance} meters from the patient.</p>
+          </Row>
+
           <Row>
             <Col>
               <Button
@@ -91,12 +102,28 @@ export const TestView = () => {
                     //increment total and correct
                     setCorrect(correct + 1);
                     incrementTotal();
-                  } else {
-                    dispatch(setLogMAR(curLogMAR - 0.1));
+                  } else if (answeredNo === false) {
+                    if (curLogMAR < 0.0) {
+                      dispatch(setFinalScore(-0.1));
+                      dispatch(setPage(Pages.Results));
+                    } else {
+                      dispatch(setLogMAR(curLogMAR - 0.1));
+                    }
                   }
                 }}
               >
                 Yes
+              </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Button
+                variant="secondary"
+                className="w-100 mt-2"
+                onClick={() => dispatch(setPage(Pages.Home))}
+              >
+                {"<"}Back
               </Button>
             </Col>
           </Row>
