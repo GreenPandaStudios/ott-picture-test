@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { NumberLiteralType } from "typescript";
 import type { RootState } from "../../src/store";
+import type { ImageData } from "../Images";
+import { Images } from "../Images";
 interface ScorePair {
   LogMAR: number;
   correct: number;
@@ -12,6 +14,7 @@ interface TestState {
   Identified: Array<number>;
   distance: number;
   finalScore: number;
+  enabledImages: { name: string; enabled: boolean }[];
 }
 
 // Define the initial state using that type
@@ -20,6 +23,10 @@ const initialState: TestState = {
   Identified: [],
   distance: 3,
   finalScore: 1.0,
+  enabledImages: Images.map((a: ImageData) => ({
+    name: a.name,
+    enabled: true,
+  })),
 };
 
 export const testSlice = createSlice({
@@ -56,6 +63,27 @@ export const testSlice = createSlice({
     setFinalScore: (state, action: PayloadAction<number>) => {
       state.finalScore = action.payload;
     },
+    enableImage: (state, action: PayloadAction<ImageData>) => {
+      for (let i = 0; i < state.enabledImages.length; i++) {
+        if (state.enabledImages[i].name === action.payload.name) {
+          state.enabledImages[i].enabled = true;
+        }
+      }
+    },
+    disableImage: (state, action: PayloadAction<ImageData>) => {
+      let i = 0;
+      for (i = 0; i < state.enabledImages.length; i++) {
+        if (state.enabledImages[i].name === action.payload.name) {
+          state.enabledImages[i].enabled = false;
+          break;
+        }
+      }
+      //need to make sure there is at least one enabled image
+      if (state.enabledImages.find((image) => image.enabled) === undefined) {
+        //otherwise, don't disable that image
+        state.enabledImages[i].enabled = true;
+      }
+    },
   },
 });
 
@@ -67,6 +95,8 @@ export const {
   setDistance,
   setLogMAR,
   setFinalScore,
+  enableImage,
+  disableImage,
 } = testSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
@@ -74,4 +104,6 @@ export const selectIdentified = (state: RootState) => state.tests.Identified;
 export const selectCurLogMAR = (state: RootState) => state.tests.curLogMAR;
 export const selectDistance = (state: RootState) => state.tests.distance;
 export const selectFinalScore = (state: RootState) => state.tests.finalScore;
+export const selectEnabledImages = (state: RootState) =>
+  state.tests.enabledImages;
 export default testSlice.reducer;

@@ -67,7 +67,11 @@ export const HomeView = () => {
       </Row>
       <Row className="m-2">
         <Col>
-          <Button className="w-25" variant="secondary">
+          <Button
+            className="w-25"
+            variant="secondary"
+            onClick={() => dispatch(setPage(Pages.ImageSelect))}
+          >
             Select Images
           </Button>
         </Col>

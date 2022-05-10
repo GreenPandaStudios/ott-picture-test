@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "../store";
 import {
   selectCurLogMAR,
   selectDistance,
   setLogMAR,
   setFinalScore,
+  selectEnabledImages,
 } from "../reducers/testReducer";
 import { setPage } from "../reducers/redirectorReducer";
 import Pages from "../Pages";
 import { selectDPM } from "../reducers/calibrationReducer";
 import { Images } from "../Images";
+import type { ImageData } from "../Images";
 import { Container, Row, Col, Button, Alert } from "react-bootstrap";
 
 export const TestView = () => {
@@ -18,8 +20,22 @@ export const TestView = () => {
   const distance = useAppSelector(selectDistance);
   const DPM = useAppSelector(selectDPM);
 
+  const [answeredNo, setAnsweredNo] = useState(false);
+  const [correct, setCorrect] = useState(0);
+  const [total, setTotal] = useState(0);
+  const enabledStatus = useAppSelector(selectEnabledImages);
+  const enabledImages: ImageData[] = useMemo(() => {
+    let _enabled: ImageData[] = [];
+    for (let i = 0; i < Images.length; i++) {
+      var t = enabledStatus.find(
+        (_im) => _im.name === Images[i].name && _im.enabled
+      );
+      if (t != undefined) _enabled = [..._enabled, Images[i]];
+    }
+    return _enabled;
+  }, [enabledStatus]);
   const [curImage, setCurrentImage] = useState(
-    Images[Math.floor(Math.random() * Images.length)]
+    enabledImages[Math.floor(Math.random() * enabledImages.length)]
   );
   const height =
     (curImage.strokeWidthHeightRatio *
@@ -27,12 +43,10 @@ export const TestView = () => {
       DPM *
       Math.pow(10, curLogMAR)) /
     3438;
-
-  const [answeredNo, setAnsweredNo] = useState(false);
-  const [correct, setCorrect] = useState(0);
-  const [total, setTotal] = useState(0);
   function getNewRandomImage() {
-    setCurrentImage(Images[Math.floor(Math.random() * Images.length)]);
+    setCurrentImage(
+      enabledImages[Math.floor(Math.random() * enabledImages.length)]
+    );
   }
   function incrementTotal() {
     let _t: number = total;
