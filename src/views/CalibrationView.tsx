@@ -15,7 +15,7 @@ export const CalibrationView = () => {
   const DPM = useAppSelector(selectDPM);
   const Scale = useAppSelector(selectScale);
   return (
-    <>
+    <Container>
       <Row>
         <Alert>
           Place a real quarter on the screen and resize the image until it is
@@ -24,16 +24,25 @@ export const CalibrationView = () => {
       </Row>
 
       <Row className="mb-2">
-        <Col>
+        <Col className="d-grid gap-2">
           <Button
-            className="w-50"
-            variant="secondary"
+            size="lg"
+            variant="outline-dark"
+            onClick={() => dispatch(setScale(Scale - 0.015))}
+          >
+            Make Much Smaller
+          </Button>
+        </Col>
+        <Col className="d-grid gap-4">
+          <Button
+            size="sm"
+            variant="outline-dark"
             onClick={() => dispatch(setScale(Scale - 0.0015))}
           >
             Make Smaller
           </Button>
         </Col>
-        <Col>
+        <Col className="mb-2">
           <Container>
             <img
               src={curimg.imagePath}
@@ -42,27 +51,25 @@ export const CalibrationView = () => {
             ></img>
           </Container>
         </Col>
-        <Col>
+        <Col className="d-grid gap-4">
           <Button
-            className="w-50"
-            variant="secondary"
+            size="sm"
+            variant="outline-dark"
             onClick={() => dispatch(setScale(Scale + 0.0015))}
           >
             Make Bigger
           </Button>
         </Col>
-      </Row>
-      <Row className="mb-2">
-        <Col className="mb-2">
+        <Col className="d-grid gap-2">
           <Button
-            className="w-25"
-            onClick={() => dispatch(setPage(Pages.Home))}
-            variant="success"
+            size="lg"
+            variant="outline-dark"
+            onClick={() => dispatch(setScale(Scale + 0.015))}
           >
-            Looks Good!
+            Make Much Bigger
           </Button>
         </Col>
       </Row>
-    </>
+    </Container>
   );
 };

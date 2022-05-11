@@ -37,6 +37,7 @@ export const calibrateSlice = createSlice({
   initialState,
   reducers: {
     setScale: (state, action: PayloadAction<number>) => {
+      if (action.payload < 0) return;
       state.Scale = action.payload;
 
       state.DPM =

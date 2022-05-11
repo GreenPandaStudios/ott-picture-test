@@ -7,12 +7,14 @@ import { TestView } from "./views/TestView";
 import { Redirector } from "./components/Redirector";
 import { ImageSelector } from "./views/ImageSelector";
 import { CalibrationView } from "./views/CalibrationView";
+import { NavBar } from "./components/NavBar";
 import Pages from "./Pages";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
+      <NavBar />
       <Redirector>
         <Routes>
           <Route path={Pages.Home} element={<HomeView />} />

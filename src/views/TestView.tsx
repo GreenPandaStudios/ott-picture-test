@@ -86,8 +86,8 @@ export const TestView = () => {
           <Row>
             <Col>
               <Button
-                className="w-75"
-                variant="danger"
+                className="w-50"
+                variant="outline-danger"
                 size="lg"
                 onClick={() => {
                   if (!answeredNo) {
@@ -107,8 +107,8 @@ export const TestView = () => {
             <Col />
             <Col>
               <Button
-                className="w-75"
-                variant="success"
+                className="w-50"
+                variant="outline-success"
                 size="lg"
                 onClick={() => {
                   getNewRandomImage();
@@ -133,11 +133,11 @@ export const TestView = () => {
           <Row>
             <Col>
               <Button
-                variant="secondary"
-                className="w-100 mt-2"
+                variant="outline-dark"
+                className="w-25 mt-2"
                 onClick={() => dispatch(setPage(Pages.Home))}
               >
-                {"<"}Back
+                Cancel Test
               </Button>
             </Col>
           </Row>

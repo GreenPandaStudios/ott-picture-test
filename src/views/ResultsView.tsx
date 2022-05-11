@@ -17,6 +17,8 @@ export const ResultsView = () => {
       <Row>
         <Col>
           <Button
+            className="w-75"
+            variant="outline-dark"
             onClick={() => {
               dispatch(setPage(Pages.Home));
             }}

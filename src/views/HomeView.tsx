@@ -22,14 +22,9 @@ export const HomeView = () => {
     <Container>
       <Row className="mb-2">
         <Alert className=" w-100" variant="primary">
-          <Alert.Heading>Ott Picture Test</Alert.Heading>
-          <p>
-            Select a testing distance, choose the images you would like to use,
-            and/or calibrate the image size using the options below.
-          </p>
-          <hr />
           <p className="mb-0">
-            When you are ready to begin a test, press the "Start Test" button.
+            Select the distance at which to conduct the test. When you are ready
+            to begin, press the "Start Test" button.
           </p>
         </Alert>
       </Row>
@@ -50,7 +45,8 @@ export const HomeView = () => {
                   onChange={(e) => setLocalDist(Number(e.target.value))}
                 />
                 <Form.Text className="text-muted">
-                  Please be mindful of the screen size of this device
+                  Please be mindful of the screen size of this device when
+                  choosing a distance.
                 </Form.Text>
               </Col>
               <Col></Col>
@@ -58,33 +54,12 @@ export const HomeView = () => {
           </Form.Group>
           <Row className="m-2 align-middle">
             <Col>
-              <Button className="w-25" type="submit" variant="success">
+              <Button className="w-25" type="submit" variant="outline-success">
                 Start Test
               </Button>
             </Col>
           </Row>
         </Form>
-      </Row>
-      <Row className="m-2">
-        <Col>
-          <Button
-            className="w-25"
-            variant="secondary"
-            onClick={() => dispatch(setPage(Pages.ImageSelect))}
-          >
-            Select Images
-          </Button>
-        </Col>
-      </Row>
-      <Row className="m-2">
-        <Col>
-          <Button
-            className="w-25"
-            onClick={() => dispatch(setPage(Pages.Calibrate))}
-          >
-            Calibrate
-          </Button>
-        </Col>
       </Row>
     </Container>
   );

@@ -25,41 +25,51 @@ export const ImageSelector = () => {
   }
   return (
     <Container>
-      <Row className="mb-2">
+      <Row>
         <Alert className=" w-100" variant="primary">
-          <Alert.Heading>Ott Picture Test</Alert.Heading>
-          <p>Select the images you would like to be used during a test.</p>
+          <p className="mb-0">
+            Select the images you would like to be used during a test.
+          </p>
         </Alert>
       </Row>
-      <Row className="mb-2">
-        <Col className="mb-2">
-          <Button
-            className="w-25"
-            onClick={() => dispatch(setPage(Pages.Home))}
-            variant="secondary"
-          >
-            Home
-          </Button>
-        </Col>
-      </Row>
+
       <Form>
         {Images.map((image: ImageData) => (
           <Row key={image.path}>
             <Col>
               <Container>
-                <img src={image.path}></img>
+                <img src={image.path} height="128px" width="128px"></img>
               </Container>
-            </Col>
-            <Col>
-              <Form.Check
-                type="switch"
-                checked={imageIsEnabled(image)}
-                onChange={(e) => {
-                  dispatch(
-                    e.target.checked ? enableImage(image) : disableImage(image)
-                  );
-                }}
-              />
+              <Row className="mb-2">
+                <Col>
+                  <Form.Check
+                    className="display-6"
+                    type="switch"
+                    checked={imageIsEnabled(image)}
+                    onChange={(e) => {
+                      dispatch(
+                        e.target.checked
+                          ? enableImage(image)
+                          : disableImage(image)
+                      );
+                    }}
+                  />
+                </Col>
+              </Row>
+              <Row className="mb-2">
+                <Col>
+                  <Alert
+                    className="display-6"
+                    variant={imageIsEnabled(image) ? "success" : "danger"}
+                  >
+                    {(imageIsEnabled(image) ? "Use " : "Do not use ") +
+                      "the " +
+                      image.name +
+                      " image."}
+                  </Alert>
+                </Col>
+              </Row>
+              <hr></hr>
             </Col>
           </Row>
         ))}
