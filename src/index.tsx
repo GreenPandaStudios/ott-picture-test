@@ -1,22 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
+import * as React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { store } from './store'
-import { Provider } from 'react-redux'
-import 'bootstrap/dist/css/bootstrap.min.css';
-const container = document.getElementById('root');
+import { store, persistor } from "./store";
+import { Provider } from "react-redux";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { PersistGate } from "redux-persist/integration/react";
+const container = document.getElementById("root");
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <BrowserRouter>
-      <App />
+        <App />
       </BrowserRouter>
     </React.StrictMode>
-  </Provider>, container
+  </Provider>,
+  container
 );
 
 // If you want your app to work offline and load faster, you can change

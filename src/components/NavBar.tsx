@@ -26,7 +26,7 @@ export const NavBar = () => {
           <Nav justify variant="tabs" defaultActiveKey="/home">
             {navPages.map((page: pagePair) => {
               return (
-                <Nav.Item>
+                <Nav.Item key={page.path}>
                   <Nav.Link
                     active={page.path === curPage}
                     onClick={() => dispatch(setPage(page.path))}
