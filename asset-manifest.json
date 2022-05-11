@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/ott-picture-test/static/css/main.0b4e74b4.css",
-    "main.js": "/ott-picture-test/static/js/main.1093b174.js",
-    "static/js/377.2ec46f75.chunk.js": "/ott-picture-test/static/js/377.2ec46f75.chunk.js",
-    "service-worker.js": "/ott-picture-test/service-worker.js",
-    "index.html": "/ott-picture-test/index.html",
-    "main.0b4e74b4.css.map": "/ott-picture-test/static/css/main.0b4e74b4.css.map",
-    "main.1093b174.js.map": "/ott-picture-test/static/js/main.1093b174.js.map",
-    "377.2ec46f75.chunk.js.map": "/ott-picture-test/static/js/377.2ec46f75.chunk.js.map"
+    "main.css": "./static/css/main.0b4e74b4.css",
+    "main.js": "./static/js/main.bad5fc28.js",
+    "static/js/377.2ec46f75.chunk.js": "./static/js/377.2ec46f75.chunk.js",
+    "service-worker.js": "./service-worker.js",
+    "index.html": "./index.html",
+    "main.0b4e74b4.css.map": "./static/css/main.0b4e74b4.css.map",
+    "main.bad5fc28.js.map": "./static/js/main.bad5fc28.js.map",
+    "377.2ec46f75.chunk.js.map": "./static/js/377.2ec46f75.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0b4e74b4.css",
-    "static/js/main.1093b174.js"
+    "static/js/main.bad5fc28.js"
   ]
 }
