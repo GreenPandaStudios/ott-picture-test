@@ -21,7 +21,7 @@ const CalibrationImages = {
     pixel_height: 600,
     meters_width: 0.02426,
     meters_height: 0.02426,
-    imagePath: "/images/Quarter.png",
+    imagePath: "images/Quarter.png",
   },
 };
 

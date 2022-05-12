@@ -23,7 +23,7 @@ export const CalibrationView = () => {
         </Alert>
       </Row>
 
-      <Row className="mb-2">
+      <Row className="mb-2 w-100">
         <Col className="d-grid gap-2">
           <Button
             size="lg"

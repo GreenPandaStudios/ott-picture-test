@@ -1,6 +1,6 @@
 {
-  "homepage": " https://greenpandastudios.github.io",
-  "name": "ott-picture-test",
+  "homepage": "https://greenpandastudios.github.io/ott-picture-test",
+  "name": "picture-test",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

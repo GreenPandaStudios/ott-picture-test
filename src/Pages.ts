@@ -1,8 +1,8 @@
 const Pages = {
-  Home: "/",
-  Test: "/test",
-  Results: "/results",
-  Calibrate: "/calibrate",
-  ImageSelect: "/images",
+  Home: "/ott-picture-test/",
+  Test: "/ott-picture-test/test",
+  Results: "/ott-picture-test/results",
+  Calibrate: "/ott-picture-test/calibrate",
+  ImageSelect: "/ott-picture-test/images",
 };
 export default Pages;

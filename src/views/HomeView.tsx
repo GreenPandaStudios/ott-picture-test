@@ -21,7 +21,7 @@ export const HomeView = () => {
   return (
     <Container>
       <Row className="mb-2">
-        <Alert className=" w-100" variant="primary">
+        <Alert className="w-100" variant="primary">
           <p className="mb-0">
             Select the distance at which to conduct the test. When you are ready
             to begin, press the "Start Test" button.
