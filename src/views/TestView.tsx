@@ -13,16 +13,17 @@ import { selectDPM } from "../reducers/calibrationReducer";
 import { Images } from "../Images";
 import type { ImageData } from "../Images";
 import { Container, Row, Col, Button, Alert } from "react-bootstrap";
+import { useEffect } from "react";
 
 export const TestView = () => {
   const dispatch = useAppDispatch();
-  const curLogMAR = useAppSelector(selectCurLogMAR);
+  const curLogMAR = Number(useAppSelector(selectCurLogMAR).toFixed(2));
   const distance = useAppSelector(selectDistance);
   const DPM = useAppSelector(selectDPM);
 
-  const [answeredNo, setAnsweredNo] = useState(false);
-  const [correct, setCorrect] = useState(0);
   const [total, setTotal] = useState(0);
+  const [correct, setCorrect] = useState(0);
+
   const enabledStatus = useAppSelector(selectEnabledImages);
   const enabledImages: ImageData[] = useMemo(() => {
     let _enabled: ImageData[] = [];
@@ -43,29 +44,48 @@ export const TestView = () => {
       DPM *
       Math.pow(10, curLogMAR)) /
     3438;
+
+  let lastImInd = 0;
+  let lastLastImInd = 0;
   function getNewRandomImage() {
-    setCurrentImage(
-      enabledImages[Math.floor(Math.random() * enabledImages.length)]
-    );
-  }
-  function incrementTotal() {
-    let _t: number = total;
-    setTotal(_t + 1);
-    if (_t + 1 >= 5) tryToCalculateScore(_t + 1, correct, curLogMAR);
+    var curImInd = Math.floor(Math.random() * enabledImages.length);
+    //check if we selected the same image twice
+    let i = 0;
+    while (curImInd === lastImInd || curImInd === lastLastImInd) {
+      //increment the
+      curImInd = (curImInd + 1) % enabledImages.length;
+      if (i > enabledImages.length) break;
+    }
+    setCurrentImage(enabledImages[curImInd]);
+    //update lastindex
+    lastLastImInd = lastImInd;
+    lastImInd = curImInd;
   }
 
-  function tryToCalculateScore(
-    total: number,
-    correct: number,
-    logMar: number
-  ): void {
-    //check if the toal guess is at least 5
+  //get random image to start
+  useEffect(() => {
+    getNewRandomImage();
+  }, [total, curLogMAR, correct]);
+
+  useEffect(() => {
+    console.log("Total: " + total + "\nCorrect: " + correct);
+    //check if the total guess is at least 5
     if (total < 5) return;
+    //check if we got 3 or more correct
+    if (correct >= 3 && curLogMAR > -0.1) {
+      setCorrect(0);
+      setTotal(0);
+      dispatch(setLogMAR(curLogMAR - 0.1));
+      return;
+    }
+
     //the score is equal to our current log mar
-    var lm = Number(logMar + 0.1 - 0.02 * correct);
+    var lm = Number(curLogMAR + 0.1 - 0.02 * correct);
+    if (lm > 1) lm = 1;
     dispatch(setFinalScore(lm));
     dispatch(setPage(Pages.Results));
-  }
+  }, [total]);
+
   return (
     <Container>
       <Row>
@@ -90,13 +110,7 @@ export const TestView = () => {
                 variant="outline-danger"
                 size="lg"
                 onClick={() => {
-                  if (!answeredNo) {
-                    setAnsweredNo(true);
-                    incrementTotal();
-                  } else {
-                    //increment total and not correct
-                    incrementTotal();
-                  }
+                  setTotal(total + 1);
                   getNewRandomImage();
                 }}
               >
@@ -111,18 +125,15 @@ export const TestView = () => {
                 variant="outline-success"
                 size="lg"
                 onClick={() => {
-                  getNewRandomImage();
-                  if (answeredNo) {
+                  if (total !== 0) {
                     //increment total and correct
                     setCorrect(correct + 1);
-                    incrementTotal();
-                  } else if (answeredNo === false) {
-                    if (curLogMAR < 0.0) {
+                    setTotal(total + 1);
+                  } else {
+                    if (curLogMAR === -0.1) {
                       dispatch(setFinalScore(-0.1));
                       dispatch(setPage(Pages.Results));
-                    } else {
-                      dispatch(setLogMAR(curLogMAR - 0.1));
-                    }
+                    } else dispatch(setLogMAR(curLogMAR - 0.1));
                   }
                 }}
               >
